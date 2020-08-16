@@ -5,11 +5,11 @@ const Users = require('../../models/Users');
 const { check, validationResult } = require('express-validator');
 const Worklist = require('../../models/Worklist');
 const Workbasket = require('../../models/Workbasket');
-
+const auth  = require('../../middleware/auth');
 
 // @route GET 
 // @access private
-router.get('/', 
+router.get('/', auth,
 async (req,res) => {
     try{
         let formID = req.query.formID;
@@ -21,17 +21,17 @@ async (req,res) => {
     }
 });
 
-router.post('/submit', (req,res,next) => {
+router.post('/submit',auth, (req,res,next) => {
     req.body.actionType = "Pending Request";
     req.body.routePath = 'Workbasket';
     next()
 });
-router.post('/approve', (req,res,next) => {
+router.post('/approve',auth, (req,res,next) => {
     req.body.actionType = "Approved Request";
     req.body.routePath = 'Worklist';
     next()
 });
-router.post('/reject', (req,res,next) => {
+router.post('/reject',auth, (req,res,next) => {
     req.body.actionType = "Rejected Request";
     req.body.routePath = 'Worklist';
     next()
@@ -93,9 +93,9 @@ async (req,res) => {
     }
 });
 
-router.put('/', [
+router.put('/', [auth,[
     check('message','message is required').not().isEmpty()
-],
+]],
 async (req,res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -121,7 +121,7 @@ async (req,res) => {
 
 });
 
-router.delete('/', 
+router.delete('/', auth,
 async (req,res) => {
     let formID = req.query.formID;
     await Forms.findByIdAndDelete(formID);

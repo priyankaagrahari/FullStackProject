@@ -13,7 +13,6 @@ async (req,res) => {
     console.log('Fetching worklists');
     try{
         let userID = req.user.userID;
-        console.log(userID);
         var query = { initiatedBy:userID};
         let worklists = await Worklist.find(query);
         res.json(worklists);

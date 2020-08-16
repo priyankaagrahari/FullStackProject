@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const WorkbasketSchema = new mongoose.Schema({
-    assignmentID:{
+    formID:{
         type:String,
         required:true,
         unique:true
@@ -9,7 +9,7 @@ const WorkbasketSchema = new mongoose.Schema({
     departmentID:{
         type:String
     },
-    intiatedBy:{
+    initiatedBy:{
         type:String
     },
     updateDate:{
