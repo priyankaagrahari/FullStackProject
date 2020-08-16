@@ -1,0 +1,4 @@
+{
+    "mongoURI" : "mongodb+srv://admin:abc123456@cluster0.d2xzr.mongodb.net/BPM_db?retryWrites=true&w=majority",
+    "jwtSecret" : "mySecret"
+}
